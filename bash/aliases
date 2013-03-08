@@ -44,3 +44,5 @@ alias rkdr="rake db:rollback"
 alias rkdc="rake db:create"
 alias rklc="rake log:clear"
 alias rkr="rake routes"
+
+alias cdkp="cd ~/code/kaeuferportal"
