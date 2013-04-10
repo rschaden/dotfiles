@@ -122,6 +122,12 @@ nmap <leader>d :Bclose<CR>
 " close all buffers
 nmap <leader>D :bufdo bd<CR>
 
+" Move between splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 " Ignore some binary, versioning and backup files when auto-completing
 set wildignore=.svn,CVS,.git,*.swp,*.jpg,*.png,*.gif,*.pdf,*.bak
 " Set a lower priority for .old files
