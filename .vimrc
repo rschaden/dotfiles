@@ -269,4 +269,4 @@ noremap <leader>D Orequire 'pry';binding.pry
 noremap <leader>c :Bclose<CR>
 noremap <leader>l @l
 noremap <leader>t :!zeus rspec %<CR>
-noremap <leader>T :!be rspec %<CR>
+noremap <leader>T :!bundle exec rspec %<CR>
