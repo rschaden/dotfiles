@@ -42,7 +42,7 @@ set ruler
 set backspace=indent,eol,start
 set laststatus=2
 set number
-set norelativenumber
+set relativenumber
 set undofile
 
 " Auto adjust window sizes when they become current
