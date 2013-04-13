@@ -1,5 +1,4 @@
-" vim: nowrap fdm=marker
-"  ---------------------------------------------------------------------------
+" vim: nowrap fdm=marker "  ---------------------------------------------------------------------------
 "  Plugins
 "  ---------------------------------------------------------------------------
 
@@ -17,16 +16,14 @@ set modelines=0
 set history=10000
 set nobackup
 set nowritebackup
-set noswapfile
 syntax enable
 set autoread
 
 "  ---------------------------------------------------------------------------
-"  UI
-"  ---------------------------------------------------------------------------
-
+"  UI {{{
 set title
 set encoding=utf-8
+set ruler
 set scrolloff=3
 set autoindent
 set smartindent
@@ -38,29 +35,19 @@ set wildmode=list:longest
 set visualbell
 set cursorline
 set ttyfast
-set ruler
 set backspace=indent,eol,start
 set laststatus=2
 set number
 set relativenumber
 set undofile
-
-" Auto adjust window sizes when they become current
-" set winwidth=84
-" set winheight=5
-" set winminheight=5
-" set winheight=999
-
 set splitbelow splitright
 
 if has('mouse')
   set mouse=a
 endif
+"  }}}
 
-"  ---------------------------------------------------------------------------
-"  Text Formatting
-"  ---------------------------------------------------------------------------
-
+"  Text Formatting {{{
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -75,15 +62,12 @@ set formatoptions=n
 if exists("+colorcolumn")
   set colorcolumn=80
 endif
+" }}}
 
 "  ---------------------------------------------------------------------------
 "  Mappings
 "  ---------------------------------------------------------------------------
-
-" Turn off arrow keys (this might not be a good idea for beginners, but it is
-" the best way to ween yourself of arrow keys on to hjkl)
-" http://yehudakatz.com/2010/07/29/everyone-who-tried-to-convince-me-to-use-vim-was-wrong/
-
+" Turn off arrow keys {{{
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
@@ -92,53 +76,56 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+" }}}
 
-" Searching / moving
-nnoremap / /\v
-vnoremap / /\v
+" Searching / moving {{{
 set ignorecase
 set smartcase
 set incsearch
 set showmatch
 set hlsearch
+" }}}
 
-" Center screen when scrolling search results
+" Center screen when scrolling search results {{{
 nmap n nzz
 nmap N Nzz
+" }}}
 
-" ACK
+" ACK {{{
 set grepprg=ack
 nnoremap <leader>a :Ack
+" }}}
 
-" Easy commenting
+" Easy commenting {{{
 nnoremap // :TComment<CR>
 vnoremap // :TComment<CR>
+" }}}
 
-" Switch between buffers
+" Switch between buffers {{{
 noremap <tab> :bn<CR>
 noremap <S-tab> :bp<CR>
-" close buffer
-nmap <leader>d :Bclose<CR>
-" close all buffers
-nmap <leader>D :bufdo bd<CR>
+" }}}
 
-" Move between splits
+" Move between splits {{{
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+" }}}
 
 " Ignore some binary, versioning and backup files when auto-completing
 set wildignore=.svn,CVS,.git,*.swp,*.jpg,*.png,*.gif,*.pdf,*.bak
 " Set a lower priority for .old files
 set suffixes+=.old
 
-" rvm-vim automatically as you switch from buffer to buffer
-:autocmd BufEnter * Rvm
+" rvm-vim automatically as you switch from buffer to buffer {{{
+augroup rvm
+  autocmd!
+  autocmd BufEnter * Rvm
+augroup END
+" }}}
 
-"  ---------------------------------------------------------------------------
-"  Function Keys
-"  ---------------------------------------------------------------------------
+"  Function Keys {{{
 
 " Press F5 to toggle GUndo tree
 nnoremap <F5> :GundoToggle<CR>
@@ -146,6 +133,7 @@ nnoremap <F5> :GundoToggle<CR>
 " indent file and return cursor and center cursor
 map   <silent> <F6> mmgg=G`m^zz
 imap  <silent> <F6> <Esc> mmgg=G`m^zz
+" }}}
 
 "  ---------------------------------------------------------------------------
 "  Plugins
@@ -165,6 +153,7 @@ nmap <leader>f :CtrlP<cr>
 " Add settings for tabular
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
+" align function {{{----------------------------------------------------------
 function! s:align()
   let p = '^\s*|\s.*\s|\s*$'
   if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
@@ -175,8 +164,9 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
+" }}}
 
-" Tabularize
+" Tabularize {{{
 if exists(":Tab")
   nmap <leader>a\| :Tab /\|<CR>
   vmap <leader>a\| :Tab /\|<CR>
@@ -185,10 +175,12 @@ if exists(":Tab")
   nmap <leader>a: :Tab /:\zs<CR>
   vmap <leader>a: :Tab /:\zs<CR>
 endif
+" }}}
 
-" Powerline
+" Powerline {{{
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 let g:Powerline_symbols='fancy'
+" }}}
 
 "  ---------------------------------------------------------------------------
 "  Language Mappings
@@ -197,14 +189,16 @@ let g:Powerline_symbols='fancy'
 " Other files to consider Ruby
 au BufRead,BufNewFile Gemfile,Rakefile,Thorfile,config.ru,Vagrantfile,Guardfile,Capfile set ft=
 
-" CoffeeScript
+" CoffeeScript {{{
 let coffee_compile_vert = 1
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
+" }}}
 
-" SASS / SCSS
+" SASS / SCSS {{{
 au BufNewFile,BufReadPost *.scss setl foldmethod=indent
 au BufNewFile,BufReadPost *.sass setl foldmethod=indent
 au BufRead,BufNewFile *.scss set filetype=scss
+" }}}
 
 "  ---------------------------------------------------------------------------
 "  Directories
@@ -225,10 +219,7 @@ if filereadable($HOME . '.vimrc.local')
   source ~/.vimrc.local
 endif
 
-"  ---------------------------------------------------------------------------
-"  MacVIM
-"  ---------------------------------------------------------------------------
-
+"  MacVIM {{{
 if has("gui_running")
   set guioptions-=T " no toolbar set guioptions-=m " no menus
   set guioptions-=r " no scrollbar on the right
@@ -237,6 +228,7 @@ if has("gui_running")
   set guioptions-=b " no scrollbar on the bottom
   set guioptions=aiA
 endif
+" }}}
 
 "  ---------------------------------------------------------------------------
 "  GnomeTerminal
@@ -257,8 +249,6 @@ colorscheme solarized
 "  Misc
 "  ---------------------------------------------------------------------------
 
-
-
 " When vimrc, either directly or via symlink, is edited, automatically reload it
 autocmd! bufwritepost .vimrc source %
 autocmd! bufwritepost vimrc source %
@@ -266,7 +256,43 @@ autocmd! bufwritepost vimrc source %
 noremap <leader>d orequire 'pry';binding.pry
 noremap <leader>D Orequire 'pry';binding.pry
 
-noremap <leader>c :Bclose<CR>
+" close buffer
+nmap <leader>c :Bclose<CR>
+" close all buffers
+nmap <leader>C :bufdo bd<CR>
+
+" let macro
 noremap <leader>l @l
+" run current file with rspec
 noremap <leader>t :!zeus rspec %<CR>
 noremap <leader>T :!bundle exec rspec %<CR>
+
+" move line up/down
+noremap <c-j> ddp
+noremap <c-k> dd2kp
+
+" make uppercase
+inoremap <c-u> <esc>viwUi
+nnoremap <c-u> viwU
+
+" edit vimrc
+noremap <leader>ev :vsplit $MYVIMRC<cr>
+" wrap in single quotes
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+
+" jk to leave insert mode
+inoremap jk <esc>
+
+"operator pending mappings
+"in parantheses
+onoremap p i(
+"next parantheses
+onoremap in( :<c-u>normal! f(vi(<cr>
+
+" Vimscript file settings ----------------------- {{{
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+set foldlevelstart=0
+" }}}
