@@ -263,9 +263,6 @@ nmap <leader>C :bufdo bd<CR>
 
 " let macro
 noremap <leader>l @l
-" run current file with rspec
-noremap <leader>t :!zeus rspec %<CR>
-noremap <leader>T :!bundle exec rspec %<CR>
 
 " move line up/down
 noremap <c-j> ddp
@@ -296,3 +293,26 @@ augroup filetype_vim
 augroup END
 set foldlevelstart=0
 " }}}
+
+" Specname function {{{
+" returns the corresponding spec name for a file
+function! Specname()
+  let filename = @%
+  if filename =~? '.spec'
+    return filename
+  else
+    let filename = substitute(filename, ".rb", "_spec.rb", "")
+    if filename =~? 'app/'
+      return substitute(filename, "app/", "spec/", "")
+    elseif filename =~? 'lib/'
+      return substitute(filename, "lib/", "spec/lib/", "")
+    else
+      return filename
+    endif
+  endif
+endfunction
+" }}}
+
+" run current file with rspec
+noremap <leader>t :execute "!zeus rspec " . Specname()<CR>
+noremap <leader>T :execute "!bundle exec rspec " . Specname()<CR>
