@@ -298,7 +298,7 @@ set foldlevelstart=0
 " returns the corresponding spec name for a file
 function! Specname()
   let filename = @%
-  if filename =~? '.spec'
+  if filename =~? '_spec.rb'
     return filename
   else
     let filename = substitute(filename, ".rb", "_spec.rb", "")
