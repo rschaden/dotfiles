@@ -316,3 +316,6 @@ endfunction
 " run current file with rspec
 noremap <leader>t :execute "!zeus rspec " . Specname()<CR>
 noremap <leader>T :execute "!bundle exec rspec " . Specname()<CR>
+" run spec in current line
+noremap <leader>r :execute "!zeus rspec " . Specname(). ":" . line('.')<CR>
+noremap <leader>R :execute "!bundle exec rspec " . Specname(). ":" . line('.')<CR>
