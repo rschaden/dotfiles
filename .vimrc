@@ -319,3 +319,5 @@ noremap <leader>T :execute "!clear && bundle exec rspec " . Specname()<CR>
 " run spec in current line
 noremap <leader>r :execute "!clear && zeus rspec " . Specname(). ":" . line('.')<CR>
 noremap <leader>R :execute "!clear && bundle exec rspec " . Specname(). ":" . line('.')<CR>
+
+noremap <leader>os :execute "vsplit " . Specname()<CR>
