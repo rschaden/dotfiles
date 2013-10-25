@@ -325,5 +325,6 @@ set background=light
 noremap <Leader>p :!pdflatex expose_ma && bibtex expose_ma && pdflatex expose_ma && pdflatex expose_ma && open expose_ma.pdf<CR>
 
 
-map <F8> :set spell spelllang_en_us<CR>
+map <F8> :set spell spelllang=en_us<CR>
 map <F9> :set nospell<CR>
+
