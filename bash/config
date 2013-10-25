@@ -42,7 +42,7 @@ BWHITE='\e[47m'
 function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [git:\1]/'
 }
-export PS1="\w\[$WHITE\]\$(parse_git_branch)\[$NO_COLOR\]\[$MAGENTA\] [\$(~/.rvm/bin/rvm-prompt i v p g s)]\[$NO_COLOR\]\$ "
+export PS1="\w\[$CYAN\]\$(parse_git_branch)\[$NO_COLOR\]\[$MAGENTA\] [\$(~/.rvm/bin/rvm-prompt i v p g s)]\[$NO_COLOR\]\$ "
 export PS2='> '
 
 # History
