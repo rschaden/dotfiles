@@ -38,7 +38,6 @@ set ttyfast
 set backspace=indent,eol,start
 set laststatus=2
 set number
-set relativenumber
 set undofile
 set splitbelow splitright
 
@@ -60,7 +59,7 @@ set formatoptions=n
 " check to make sure vim has been compiled with colorcolumn support
 " before enabling it
 if exists("+colorcolumn")
-  set colorcolumn=80
+  set colorcolumn=79
 endif
 " }}}
 
@@ -262,11 +261,7 @@ nmap <leader>c :Bclose<CR>
 nmap <leader>C :bufdo bd<CR>
 
 " let macro
-noremap <leader>l @l
-
-" move line up/down
-noremap <c-j> ddp
-noremap <c-k> dd2kp
+noremap <leader>l :RExtractLet<cr>
 
 " make uppercase
 inoremap <c-u> <esc>viwUi
@@ -314,10 +309,21 @@ endfunction
 " }}}
 
 " run current file with rspec
-noremap <leader>t :execute "!clear && zeus rspec " . Specname()<CR>
-noremap <leader>T :execute "!clear && bundle exec rspec " . Specname()<CR>
+" noremap <leader>t :execute "!clear && rspec " . Specname()<CR>
+" noremap <leader>T :execute "!clear && bundle exec rspec " . Specname()<CR>
 " run spec in current line
-noremap <leader>r :execute "!clear && zeus rspec " . Specname(). ":" . line('.')<CR>
-noremap <leader>R :execute "!clear && bundle exec rspec " . Specname(). ":" . line('.')<CR>
+" noremap <leader>r :execute "!clear && rspec " . Specname(). ":" . line('.')<CR>
+" noremap <leader>R :execute "!clear && bundle exec rspec " . Specname(). ":" . line('.')<CR>
+
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
 
 noremap <leader>os :execute "vsplit " . Specname()<CR>
+
+set background=light
+noremap <Leader>p :!pdflatex expose_ma && bibtex expose_ma && pdflatex expose_ma && pdflatex expose_ma && open expose_ma.pdf<CR>
+
+
+map <F8> :set spell spelllang_en_us<CR>
+map <F9> :set nospell<CR>
